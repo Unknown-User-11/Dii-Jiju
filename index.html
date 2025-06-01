@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title></title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="music-icon" onclick="toggleMusic()">🎵</div>
+  <audio id="bgMusic" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <div class="heart-container" id="heartContainer"></div>
+
+  <div id="loginBox">
+    <h2>Enter the Key to My Heart 💖</h2>
+    <input type="text" id="username" placeholder="Enter ID">
+    <div class="password-wrapper">
+      <input type="password" id="password" placeholder="Enter Password">
+      <span class="toggle-password" onclick="togglePassword()">👁️</span>
+    </div>
+    <button onclick="validateLogin()">Unlock</button>
+    <div id="message">Oops ! Pati Dev Socho password kya ho sakta hai😂</div>
+    <div class="lock-icon">🔐</div>
+  </div>
+
+  <div class="main-content" id="mainContent">
+    <div>
+      <div class="cube-container">
+        <div class="cube" id="cube">
+          <div class="face front"></div>
+          <div class="face back"></div>
+          <div class="face right"></div>
+          <div class="face left"></div>
+          <div class="face top"></div>
+          <div class="face bottom"></div>
+        </div>
+      </div>
+      <div class="caption" id="cubeCaption">Aapki baahon mein sab gham mita jaate hain🤗</div>
+    </div>
+    <div class="image-gallery">
+      <div class="description-line">Swipe to see our memory💞</div>
+      <div class="row">
+        <img src="1.jpg" onclick="rotateCube('front', 'Aapki baahon mein sab gham mita jaate hain🤗')">
+        <img src="2.jpg" onclick="rotateCube('back', 'Thak gaya hoga mirror bhi, roz itna sundar chahra dekh ke!😍')">
+        <img src="3.jpg" onclick="rotateCube('left', 'Aap ki muskaan mein hi meri khushi chhupi hai😊💗')">
+      </div>
+      <div class="row">
+        <img src="4.jpg" onclick="rotateCube('right', 'Perfect Patner💖')">
+        <img src="5.jpg" onclick="rotateCube('top', 'Aap ke bina coffee bhi feeki lagti hai☕😌')">
+        <img src="6.jpg" onclick="rotateCube('bottom', 'Zindagi ka sabse khoobsurat faisla: aapka haath thamna🤝🌹')">
+      </div>
+    </div>
+    <div class="surprise-container">
+      <button id="surpriseBtn">🎁 Surprise</button>
+    </div>
+  </div>
+  
+  <script src="script.js" defer></script>
+
+</body>
+</html>

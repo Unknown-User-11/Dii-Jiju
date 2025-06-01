@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Letter for You 💌</title>
+  <!-- <link rel="stylesheet" href="style.css">-->
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #e456a9, #f0bb75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+    .letter-wrapper {
+      position: relative;
+      margin: 50px auto;
+      width: 90%;
+      max-width: 600px;
+      height: 120px;
+      background: #ffe6b5;
+      border: 2px solid #d89c4c;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      overflow: hidden;
+      cursor: pointer;
+      transition: height 1.2s ease-in-out;
+    }
+
+    .letter-wrapper.open {
+      height: auto;
+    }
+
+    .ribbon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      background: #f7c3a0;
+      color: rgb(255, 155, 213);
+      padding: 10px 20px;
+      border-radius: 50px;
+      z-index: 2;
+      transition: opacity 0.5s ease;
+    }
+
+    .letter-wrapper.open .ribbon {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .letter {
+      padding: 40px;
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: #4a4a4a;
+      display: none;
+    }
+
+    .line {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      margin-bottom: 10px;
+    }
+
+    .shayari-scroll {
+      width: 90%;
+      max-width: 600px;
+      margin: 30px auto;
+      background: #fff6e0;
+      border: 2px dashed #ff49ad;
+      padding: 25px 30px;
+      border-radius: 30px;
+      font-family: 'Quicksand', cursive;
+      font-size: 1.5rem;
+      color: #fc8617;
+      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 1s ease-in-out;
+      text-align: center;
+    }
+
+    .shayari-line {
+      margin: 12px 0;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 1s forwards;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .heart {
+      position: fixed;
+      bottom: 50px;
+      font-size: 20px;
+      color: #ff5b8a;
+      animation: floatUp 2.5s ease-out forwards;
+      pointer-events: none;
+      opacity: 0.9;
+      z-index: 100;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(-150px) scale(1.5);
+        opacity: 0;
+      }
+    }
+    .fullscreen {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .music-icon {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 999;
+    user-select: none;
+  }
+  
+  </style>
+</head>
+<body>
+  <div class="music-icon" onclick="toggleMusic()">🎵</div>
+  <audio id="bgMusic"autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <!-- Folded Letter with Ribbon -->
+  <div class="letter-wrapper" onclick="openLetter()">
+    <div class="ribbon">🎀</div>
+    <section class="letter" id="letter">
+      <!-- Letter lines will appear here -->
+    </section>
+  </div>
+
+  <div class="shayari-scroll" id="shayari">
+    <p class="shayari-line">Likhu toh lafz ho tum ✍️</p>
+    <p class="shayari-line">Sochu toh khayal ho tum 💭</p>
+    <p class="shayari-line">Mangu toh dua ho tum 🙏</p>
+    <p class="shayari-line">Sach kahu toh meri jaan ho tum ❤️✨</p>
+  </div>
+
+  <script>
+    const letterLines = [
+      "My Dear Husband🥰,",
+      "Jab se aap meri zindagi mein aaye ho, sab kuch badal gaya hai...🌈",
+      "Har subah aapki muskaan se shuru hoti hai, aur har raat aapki baaton mein khatam☀️🌙",
+      "Pehle zindagi sirf jee rahe the... ab mehsoos karte hain — har ek lamha, har ek pal✨",
+      "Aap sirf mere humsafar nahi ho...💑",
+      "Aap mere sabse acche dost, mera sukoon, mera ghar, meri shanti, meri muskurahat ho🏡❤️",
+      "Main shayad zyada nahi keh paati, lekin har roz aapke liye dil se ek nayi dua nikalti hai🙏💖",
+      "Aapka gussa, aapki care, aapka 'bas main hoon na' kehna...😠🤗",
+      "Sab kuch itna apna sa lagta hai, jaise meri har kami ko aapne apne pyaar se poora kar diya ho💕",
+      "Kayi baar lagta hai, shayad main itni lucky hoon ki meri har dua sun li gayi🍀",
+      "Bas itna kehna chahti hoon — ✍️",
+      "Jitna pyaar aaj karti hoon aapse, kal aur bhi zyada karungi💞",
+      "Chahe duniya badal jaye, lekin mera aap par vishwas aur mera pyaar kabhi kam nahi hoga🌍💫",
+      "Love you always Hubby👩‍❤️‍👨",
+      "Aapki pyaari Patni💖"
+    ];
+
+    function openLetter() {
+      const wrapper = document.querySelector('.letter-wrapper');
+      const letter = document.getElementById("letter");
+
+      if (!wrapper.classList.contains('open')) {
+        wrapper.classList.add('open');
+        letter.style.display = "block";
+
+        // Animate letter lines
+        letterLines.forEach((line, index) => {
+          const p = document.createElement("p");
+          p.classList.add("line");
+          p.textContent = line;
+          letter.appendChild(p);
+
+          setTimeout(() => {
+            p.style.opacity = 1;
+          }, index * 2000);
+        });
+
+        // Reveal shayari and hearts
+        setTimeout(() => {
+          const shayari = document.getElementById("shayari");
+          shayari.style.opacity = 1;
+          shayari.style.transform = "scale(1)";
+
+          const lines = document.querySelectorAll(".shayari-line");
+          lines.forEach((line, i) => {
+            line.style.animationDelay = `${i * 0.8}s`;
+          });
+        }, letterLines.length * 2000 + 1000);
+      }
+    }
+    function createFloatingHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '💖';
+      heart.style.left = Math.random() * 90 + 5 + 'vw';
+      heart.style.fontSize = (Math.random() * 10 + 16) + 'px';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 2500);
+    }
+    
+    function toggleMusic() {
+    const music = document.getElementById("bgMusic");
+    if (music.paused) {
+      music.play();
+    } else {
+      music.pause();
+    }
+  }
+  </script>
+</body>
+</html>
+
+
+
+
